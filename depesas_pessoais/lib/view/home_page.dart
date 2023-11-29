@@ -25,6 +25,15 @@ class MyHomePageState extends State<MyHomePage> {
       listTransaction.add(newTransaction);
     });
 
+    Navigator.of(context).pop();
+  }
+
+  opeTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return TransactionForm(onSubmitted: addTransaction); // comunicação indireta
+        });
   }
 
   @override
@@ -32,17 +41,32 @@ class MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Despesas Pessoais'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              opeTransactionFormModal(context);
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Card(elevation: 5, color: Colors.blue, child: Text('Grafico')),
-            TransactionForm(onSubmitted: addTransaction), // comunicação indireta
+
             TransactionLits(listTransaction: listTransaction), // comunicação dirate
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          opeTransactionFormModal(context);
+        },
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
