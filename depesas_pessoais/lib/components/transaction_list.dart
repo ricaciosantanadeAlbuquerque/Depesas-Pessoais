@@ -20,17 +20,20 @@ class TransactionLits extends StatelessWidget {
             elevation: 5,
             child: ListTile(
               leading: CircleAvatar(
+                backgroundColor:Theme.of(context).colorScheme.primary,
                 radius: 30,
                 child: Padding(
                   padding: const EdgeInsets.all(9.0),
                   child: FittedBox(
                     child: Text(
                       trs.value.toStringAsFixed(2),
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
                 ),
               ),
-              title: Text(trs.title),
+              title: Text(trs.title,
+              style:Theme.of(context).textTheme.titleLarge),
               subtitle: Text(DateFormat('dd MMM y').format(trs.date)),
               trailing: IconButton(
                 onPressed: () {},
