@@ -20,16 +20,19 @@ class ExpensesApp extends StatelessWidget {
             fontSize:16,
             fontWeight:FontWeight.bold,
             color:Colors.black,
+           fontFamily:'Nunito'
           ),
           labelLarge: const TextStyle(
             fontWeight:FontWeight.bold,
-            fontSize:16
+            fontSize:16,
+            fontFamily:'Nunito'
           ),
         ),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
             fontSize: 25,
             fontWeight:FontWeight.bold,
+            fontFamily: 'AlexBrush'
           ),
         ),
       ),
