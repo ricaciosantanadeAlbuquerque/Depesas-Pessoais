@@ -15,8 +15,8 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   final List<Transaction> listTransaction = [
-   Transaction(id: Random().nextDouble().toString(), title: 'Conta de Luz', value: 150000, date: DateTime.now()),
-   Transaction(id: Random().nextDouble().toString(), title: 'Cartao de crédito', value: 250, date: DateTime.now()),
+    Transaction(id: Random().nextDouble().toString(), title: 'Conta de Luz', value: 1500, date: DateTime.now().subtract(const Duration(days:15))),
+    Transaction(id: Random().nextDouble().toString(), title: 'Cartao de crédito', value: 250, date: DateTime.now()),
   ];
 
   void addTransaction(String title, double value) {
@@ -37,11 +37,18 @@ class MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  List<Transaction> get recentTransaction {
+    return listTransaction.where((trs) {
+      return trs.date.isAfter(DateTime.now().subtract(const Duration(days: 7)));
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Despesas Pessoais',
+        title: const Text(
+          'Despesas Pessoais',
         ),
         actions: [
           IconButton(
@@ -56,7 +63,9 @@ class MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(listaTransaction: listTransaction,),
+            Chart(
+              listaTransaction: recentTransaction,
+            ),
             TransactionLits(listTransaction: listTransaction), // comunicação dirate
           ],
         ),
