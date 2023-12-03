@@ -51,6 +51,12 @@ class Chart extends StatelessWidget {
     }).reversed.toList();
   }
 
+  double get weekTotlaValue {
+    return groupedTransaction.fold(0.0, (ct, map) {
+      return ct += map['value'] as double;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     groupedTransaction;
@@ -60,12 +66,14 @@ class Chart extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
-          mainAxisAlignment:MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: groupedTransaction.map((map) {
             return Flexible(
-              fit:FlexFit.tight,
+              fit: FlexFit.tight,
               child: ChartBar(
-                label: map['day'] as String, value: map['value'] as double ,percentage: 5,
+                label: map['day'] as String,
+                value: map['value'] as double,
+                percentage: (weekTotlaValue == 0) ? 0.0 : (map['value'] as double) / weekTotlaValue,
               ),
             );
           }).toList(),
