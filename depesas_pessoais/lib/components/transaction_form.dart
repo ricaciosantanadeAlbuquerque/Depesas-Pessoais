@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function(String, double) onSubmitted;
+  final void Function(String, double,DateTime) onSubmitted;
 
   const TransactionForm({super.key, required this.onSubmitted});
 
@@ -12,6 +13,7 @@ class TransactionForm extends StatefulWidget {
 class TransactionFormState extends State<TransactionForm> {
   final title = TextEditingController();
   final value = TextEditingController();
+  DateTime selectedDate = DateTime.now();
 
   void submited() {
     final titulo = title.text;
@@ -21,7 +23,27 @@ class TransactionFormState extends State<TransactionForm> {
       return;
     }
 
-    widget.onSubmitted(titulo, valor);
+    widget.onSubmitted(titulo, valor,selectedDate);
+  }
+
+  void calendar() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2023),
+      lastDate: DateTime.now(),
+    ).then((date){
+      if (date == null) {
+        return;
+      }
+      setState(() {
+        selectedDate = date;
+      });
+      
+     // print("Selecionado");
+    });
+
+   // print('Feito');
   }
 
   @override
@@ -41,7 +63,7 @@ class TransactionFormState extends State<TransactionForm> {
             ),
             TextField(
               controller: value,
-              onSubmitted:(_) => submited(),
+              onSubmitted: (_) => submited(),
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               decoration: const InputDecoration(
                 labelText: 'Valor (R\$)',
@@ -51,9 +73,9 @@ class TransactionFormState extends State<TransactionForm> {
               height: 70,
               child: Row(
                 children: [
-                  const Expanded(child: Text('Data Selecionada')),
+                  Expanded(child: Text('Data Selecionada ${DateFormat('dd / MM / y').format(selectedDate)}')),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: calendar,
                     child: const Text('Data Selecionada'),
                   ),
                 ],
