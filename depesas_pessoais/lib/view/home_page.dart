@@ -19,8 +19,8 @@ class MyHomePageState extends State<MyHomePage> {
     //Transaction(id: Random().nextDouble().toString(), title: 'Cartao de crédito', value: 250, date: DateTime.now()),
   ];
 
-  void addTransaction(String title, double value) {
-    final newTransaction = Transaction(id: Random().nextDouble.toString(), title: title, value: value, date: DateTime.now());
+  void addTransaction(String title, double value,DateTime date) {
+    final newTransaction = Transaction(id: Random().nextDouble.toString(), title: title, value: value, date: date);
 
     setState(() {
       listTransaction.add(newTransaction);
