@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:depesas_pessoais/model/transaction.dart';
 import 'package:flutter/material.dart';
-
 import '../components/chart.dart';
 import '../components/transaction_form.dart';
 import '../components/transaction_list.dart';
@@ -14,10 +12,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> listTransaction = [];
+  final List<Transaction> listTransaction = [
+   // Transaction(id: Random().nextDouble().toString(), title: 'conta de luz', value: 55, date:DateTime.now())
+  ];
 
   void addTransaction(String title, double value, DateTime date) {
-    final newTransaction = Transaction(id: Random().nextDouble.toString(), title: title, value: value, date: date);
+    final newTransaction = Transaction(id: Random().nextDouble().toString(), title: title, value: value, date: date);
 
     setState(() {
       listTransaction.add(newTransaction);
@@ -40,9 +40,10 @@ class MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void onRemove(String id) {
+  removeTransactio(String id) {
+    print("===============================================${id} ===================================================");
     setState(() {
-       listTransaction.removeWhere((trs) {
+      listTransaction.removeWhere((trs) {
         return trs.id == id;
       });
     });
@@ -71,7 +72,10 @@ class MyHomePageState extends State<MyHomePage> {
             Chart(
               listaTransaction: recentTransaction,
             ),
-            TransactionLits(listTransaction: listTransaction, onRemove: onRemove,), // comunicação dirate / comunicação indireta
+            TransactionLits(
+              listTransaction: listTransaction,
+              onSubmitted: removeTransactio,
+            ), // comunicação dirate / comunicação indireta
           ],
         ),
       ),
