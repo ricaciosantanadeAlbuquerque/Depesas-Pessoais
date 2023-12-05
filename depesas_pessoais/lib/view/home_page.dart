@@ -14,12 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> listTransaction = [
-   // Transaction(id: Random().nextDouble().toString(), title: 'Conta de Luz', value: 1500, date: DateTime.now().subtract(const Duration(days: 15))),
-   // Transaction(id: Random().nextDouble().toString(), title: 'Cartao de crédito', value: 250, date: DateTime.now()),
-        Transaction(id: Random().nextDouble().toString(), title: 'Conta de Luz', value: 1500, date: DateTime.now().subtract(const Duration(days: 15))),
-    
-  ];
+  final List<Transaction> listTransaction = [];
 
   void addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(id: Random().nextDouble.toString(), title: title, value: value, date: date);
