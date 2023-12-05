@@ -15,11 +15,13 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   final List<Transaction> listTransaction = [
-   // Transaction(id: Random().nextDouble().toString(), title: 'Conta de Luz', value: 1500, date: DateTime.now().subtract(const Duration(days:15))),
-    //Transaction(id: Random().nextDouble().toString(), title: 'Cartao de crédito', value: 250, date: DateTime.now()),
+   // Transaction(id: Random().nextDouble().toString(), title: 'Conta de Luz', value: 1500, date: DateTime.now().subtract(const Duration(days: 15))),
+   // Transaction(id: Random().nextDouble().toString(), title: 'Cartao de crédito', value: 250, date: DateTime.now()),
+        Transaction(id: Random().nextDouble().toString(), title: 'Conta de Luz', value: 1500, date: DateTime.now().subtract(const Duration(days: 15))),
+    
   ];
 
-  void addTransaction(String title, double value,DateTime date) {
+  void addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(id: Random().nextDouble.toString(), title: title, value: value, date: date);
 
     setState(() {
@@ -41,6 +43,14 @@ class MyHomePageState extends State<MyHomePage> {
     return listTransaction.where((trs) {
       return trs.date.isAfter(DateTime.now().subtract(const Duration(days: 7)));
     }).toList();
+  }
+
+  void onRemove(String id) {
+    setState(() {
+       listTransaction.removeWhere((trs) {
+        return trs.id == id;
+      });
+    });
   }
 
   @override
@@ -66,7 +76,7 @@ class MyHomePageState extends State<MyHomePage> {
             Chart(
               listaTransaction: recentTransaction,
             ),
-            TransactionLits(listTransaction: listTransaction), // comunicação dirate
+            TransactionLits(listTransaction: listTransaction, onRemove: onRemove,), // comunicação dirate / comunicação indireta
           ],
         ),
       ),
